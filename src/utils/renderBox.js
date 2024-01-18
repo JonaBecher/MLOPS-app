@@ -22,7 +22,7 @@ export const renderBoxes = (canvasRef, threshold, boxes_data, scores_data, class
   ctx.textBaseline = "top";
 
   for (let i = 0; i < scores_data.length; ++i) {
-    //console.log('scores_data[i]: ', scores_data[i])
+    console.log('scores_data[i]: ', scores_data[i])
     if (scores_data[i] > threshold) {
       const klass = labels[classes_data[i]];
       const score = (scores_data[i] * 100).toFixed(1);
