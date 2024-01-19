@@ -30,7 +30,7 @@ async function getClientId(baseUrl) {
 
 const App = () => {
   const baseUrl = "https://mlops.mbyt.de/300530342426941322/"
-  const websocketUrl = "ws://mlops.mbyt.de:8000/ws/"
+  const websocketUrl = "wss://mlops.mbyt.de/ws/"
   const [loading, setLoading] = useState({ loading: true, progress: 0 });
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
