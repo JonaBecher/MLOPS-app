@@ -97,72 +97,72 @@ const App = () => {
 
   const detectFrame = async () => {
     const model_dim = [640, 640];
-    tf.engine().startScope();
-    const input = tf.tidy(() => {
-      console.log(darkRef.current)
-      const img = tf.image
-                  .resizeBilinear(tf.browser.fromPixels(videoRef.current), model_dim)
-                  .mul(darkRef.current && modelIdRef.current === "7d6801d4da0d44bd9c0151093de42158"?0.01:1)
-                  .div(255.0)
-                  .transpose([2, 0, 1])
-                  .expandDims(0);
-      return img
-    });
-    let res = model.current.execute(input)
 
-    res = res.arraySync()[0];
+        const input = tf.image
+            .resizeBilinear(tf.browser.fromPixels(videoRef.current), model_dim)
+            .mul(darkRef.current && modelIdRef.current === "7d6801d4da0d44bd9c0151093de42158" ? 0.01 : 1)
+            .div(255.0)
+            .transpose([2, 0, 1])
+            .expandDims(0);
+    try {
+      let res = model.current.execute(input)
+      res = res.arraySync()[0];
 
-    let detections = non_max_suppression(res);
-    const boxes =  shortenedCol(detections, [0,1,2,3]);
-    const scores = shortenedCol(detections, [4]);
-    const class_detect = shortenedCol(detections, [5]);
+      let detections = non_max_suppression(res);
+      const boxes = shortenedCol(detections, [0, 1, 2, 3]);
+      const scores = shortenedCol(detections, [4]);
+      const class_detect = shortenedCol(detections, [5]);
 
-    const meanTensor = tf.mean(input, [2, 3]).mul(255);
+      const meanTensor = tf.mean(input, [2, 3]).mul(255);
 
-    let red = 0
-    let green = 0
-    let blue = 0
+      let red = 0
+      let green = 0
+      let blue = 0
 
-    await meanTensor.array().then(avgValues => {
-      [red, green, blue] = avgValues[0];
-      console.log(`Average Red: ${red}, Average Green: ${green}, Average Blue: ${blue}`);
-    });
-    let data = {
-      "type": "logs",
-      "value": {
-        "metrics": [],
-        "image": {
-          "avgRed": red,
-          "avgGreen": green,
-          "avgBlue": blue,
-        },
-        "modelId": localStorage.getItem("modelId"),
-        "deviceId": localStorage.getItem("clientId"),
+      await meanTensor.array().then(avgValues => {
+        [red, green, blue] = avgValues[0];
+        console.log(`Average Red: ${red}, Average Green: ${green}, Average Blue: ${blue}`);
+      });
+      let data = {
+        "type": "logs",
+        "value": {
+          "metrics": [],
+          "image": {
+            "avgRed": red,
+            "avgGreen": green,
+            "avgBlue": blue,
+          },
+          "modelId": localStorage.getItem("modelId"),
+          "deviceId": localStorage.getItem("clientId"),
+        }
       }
-    }
 
-    detections.forEach((detection, idx) => {
-      const score = scores[idx][0]
-      const detected_class = labels[class_detect[idx]]
-      data.value.metrics.push(
-          {
-            "predictedLabel": detected_class,
-            "score": score
+      detections.forEach((detection, idx) => {
+        const score = scores[idx][0]
+        const detected_class = labels[class_detect[idx]]
+        data.value.metrics.push(
+            {
+              "predictedLabel": detected_class,
+              "score": score
+            })
+        console.log(score, detected_class)
       })
-      console.log(score, detected_class)
-    })
-    sendJsonMessage(data)
+      sendJsonMessage(data)
 
-    renderBoxes(canvasRef, threshold, boxes, scores, class_detect);
+      renderBoxes(canvasRef, threshold, boxes, scores, class_detect);
 
-    tf.dispose(res);
-    function timeout(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
+      tf.dispose(res);
+    } catch (e) {
+      console.log(e)
+    } finally {
+      function timeout(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+      await timeout(1000)
+      console.log("waited 1sc")
+      requestAnimationFrame(() => detectFrame()); // get another frame
+
     }
-    await timeout(1000)
-    console.log("waited 1sc")
-    requestAnimationFrame(() => detectFrame()); // get another frame
-    tf.engine().endScope();
   };
 
   useEffect(async () => {
