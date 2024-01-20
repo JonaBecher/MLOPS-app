@@ -34,6 +34,7 @@ const App = () => {
   const [loading, setLoading] = useState({ loading: true, progress: 0 });
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
+  const modelIdRef = useRef("");
   const webcam = new Webcam();
   // configs
   const threshold = 0.3;
@@ -67,7 +68,9 @@ const App = () => {
 
         switch (data.type) {
           case "modelVersion": {
-            sendJsonMessage({"type": "modelVersion", "value": localStorage.getItem("modelId")})
+            let modelId = localStorage.getItem("modelId")
+            modelIdRef.current = modelId;
+            sendJsonMessage({"type": "modelVersion", "value": modelId})
             break;
           }
           case "setDark": {
@@ -83,6 +86,7 @@ const App = () => {
               setModelVersion(data.value.version);
               sendJsonMessage({"type": "updateModelVersion", "value": data.value.version})
             })
+            modelIdRef.current = data.value.version
             break;
           }
         }
@@ -98,7 +102,7 @@ const App = () => {
       console.log(darkRef.current)
       const img = tf.image
                   .resizeBilinear(tf.browser.fromPixels(videoRef.current), model_dim)
-                  .mul(darkRef.current?0.04:1)
+                  .mul(darkRef.current && modelIdRef.current === "7d6801d4da0d44bd9c0151093de42158"?0.04:1)
                   .div(255.0)
                   .transpose([2, 0, 1])
                   .expandDims(0);
