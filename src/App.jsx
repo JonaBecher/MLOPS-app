@@ -102,7 +102,7 @@ const App = () => {
       console.log(darkRef.current)
       const img = tf.image
                   .resizeBilinear(tf.browser.fromPixels(videoRef.current), model_dim)
-                  .mul(darkRef.current && modelIdRef.current === "7d6801d4da0d44bd9c0151093de42158"?0.04:1)
+                  .mul(darkRef.current && modelIdRef.current === "7d6801d4da0d44bd9c0151093de42158"?0.01:1)
                   .div(255.0)
                   .transpose([2, 0, 1])
                   .expandDims(0);
