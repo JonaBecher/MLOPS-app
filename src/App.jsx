@@ -158,7 +158,7 @@ const App = () => {
       function timeout(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
       }
-      await timeout(2000)
+      await timeout(1000)
       console.log("waited 2sc")
       requestAnimationFrame(() => detectFrame()); // get another frame
 
