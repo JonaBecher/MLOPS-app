@@ -5,12 +5,12 @@ Anwendung zum Deployen und Ausführen eines YoloV7 Modells auf Edge Devices dire
 Pakete installieren: `npm install`
 
 Starten: `npm run dev`
-
-Architektur: 
+_______ 
+### Architektur: 
 
 ![Alt text](git-media/img.png "Überblick")
 
-Features:
+### Features:
 - **Echtzeit-Objekterkennung mit Webcam**: Verwendung einer Webcam für die Objekterkennung in Echtzeit durch Laden und Ausführen eines YOLOv7 Modells.
 - **Objekterkennung mit YOLOv7**: Nutzung des YOLOv7-Modells für die Objekterkennung
 - **Benutzerdefinierte Metrikübertragung**: Übertragung benutzerdefinierter Metriken (z.B. durchschnittliche Farbwerte im Bild) an das Backend über Websockets.
