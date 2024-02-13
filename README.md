@@ -2,9 +2,9 @@
 # MLFLOW-App
 Anwendung zum Deployen und Ausführen eines YoloV7 Modells auf Edge Devices direkt im Webbrowser. 
 
-Pakete installieren:`npm install`
+Pakete installieren: `npm install`
 
-Starten:`npm run dev`
+Starten: `npm run dev`
 
 Architektur: 
 
