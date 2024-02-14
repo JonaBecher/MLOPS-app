@@ -9,6 +9,8 @@ _______
 ### Architektur: 
 
 ![Alt text](git-media/img.png "Überblick")
+[Dashboard-Repo](https://github.com/JonaBecher/MLOPS-dashboard) | [Backend-Repo](https://github.com/JonaBecher/MLOPS-backend)
+
 
 ### Features:
 - **Echtzeit-Objekterkennung mit Webcam**: Verwendung einer Webcam für die Objekterkennung in Echtzeit durch Laden und Ausführen eines YOLOv7 Modells.
