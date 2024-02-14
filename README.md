@@ -1,6 +1,6 @@
 
 # MLFLOW-App
-Anwendung zum Deployen und Ausführen eines YoloV7 Modells auf Edge Devices direkt im Webbrowser. 
+Anwendung zum Deployen und Ausführen eines YOLOV7 Modells auf Edge Devices direkt im Webbrowser. 
 
 Pakete installieren: `npm install`
 
@@ -14,7 +14,7 @@ _______
 
 ### Features:
 - **Echtzeit-Objekterkennung mit Webcam**: Verwendung einer Webcam für die Objekterkennung in Echtzeit durch Laden und Ausführen eines YOLOv7 Modells.
-- **Objekterkennung mit YOLOv7**: Nutzung des YOLOv7-Modells für die Objekterkennung
+- **Objekterkennung mit YOLOv7**: Nutzung des YOLOv7-Modells für die Objekterkennung.
 - **Benutzerdefinierte Metrikübertragung**: Übertragung benutzerdefinierter Metriken (z.B. durchschnittliche Farbwerte im Bild) an das Backend über Websockets.
 - **Dynamische Modellaktualisierungen**: Möglichkeit, Modellversionen über Websockets zu aktualisieren, ohne die Seite neu laden zu müssen.
 - **Dunkelmodus-Umschaltung**: Umschaltung zwischen Dunkelmodus und Normalmodus basierend auf vom Backend gesendeten Befehlen.
